@@ -1,11 +1,45 @@
 const router = require('express').Router();
 let Product = require('../models/product.model');
+let Style = require('../models/styles.model');
+let Related = require('../models/related.model');
+
+// Atlier Product API
+// GET /products
+// GET /products/:product_id
+// GET /products/:product_id/styles
+// GET /products/:product_id/related
 
 router.route('/').get((req, res) => {
-  Product.find()
+  let random = [Math.floor(Math.random() * 504000), Math.floor(Math.random() * 504000), Math.floor(Math.random() * 504000)];
+  Product.find({id: {$in: random }}, {_id: 0})
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: ' + err));
 });
+
+
+router.route('/:product_id').get((req, res) => {
+  let param = req.params;
+  console.log(param.product_id);
+  Product.findOne({ id: param.product_id })
+    .then(products => res.json(products))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
+router.route('/:product_id/styles').get((req, res) => {
+  let random = [Math.floor(Math.random() * 504000), Math.floor(Math.random() * 504000), Math.floor(Math.random() * 504000)];
+  Style.find({id: {$in: random }}, {_id: 0})
+    .then(products => res.json(products))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/:product_id/related').get((req, res) => {
+  console.log(req.params);
+  Related.find({id: parseInt(req.params.product_id)}, {_id: 0})
+    .then(products => res.json(products))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
 
 router.route('/add').post((req, res) => {
   const id = Number(req.body.id);

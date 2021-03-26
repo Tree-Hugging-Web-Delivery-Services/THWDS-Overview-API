@@ -12,7 +12,11 @@ let Related = require('../models/related.model');
 router.route('/').get((req, res) => {
   let random = [Math.floor(Math.random() * 504000), Math.floor(Math.random() * 504000), Math.floor(Math.random() * 504000)];
   Product.find({id: {$in: random }}, {_id: 0})
-    .then(products => res.json(products))
+  .then(products => {
+    console.log(products);
+    return products;
+  })
+  .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -27,15 +31,16 @@ router.route('/:product_id').get((req, res) => {
 
 
 router.route('/:product_id/styles').get((req, res) => {
-  let random = [Math.floor(Math.random() * 504000), Math.floor(Math.random() * 504000), Math.floor(Math.random() * 504000)];
-  Style.find({id: {$in: random }}, {_id: 0})
+  Style.find({id: req.params.product_id}, {_id: 0})
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/:product_id/related').get((req, res) => {
   console.log(req.params);
-  Related.find({id: parseInt(req.params.product_id)}, {_id: 0})
+  let rel = parseInt(req.params.product_id);
+  console.log(typeof rel);
+  Related.find({Fabric: "Stitching"}, {_id: 0})
     .then(products => res.json(products))
     .catch(err => res.status(400).json('Error: ' + err));
 });

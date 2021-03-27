@@ -2,6 +2,8 @@ const router = require('express').Router();
 let Product = require('../models/product.model');
 let Style = require('../models/styles.model');
 let Related = require('../models/related.model');
+let Feature = require('../models/features.model');
+let Skus = require('../models/skus.model');
 
 // Atlier Product API
 // GET /products
@@ -69,3 +71,4 @@ router.route('/add').post((req, res) => {
 });
 
 module.exports = router;
+

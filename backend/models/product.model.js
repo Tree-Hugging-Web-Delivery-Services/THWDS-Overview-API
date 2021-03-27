@@ -7,7 +7,14 @@ const productSchema = new Schema({
   slogan: { type: String, required: true },
   description: { type: String, required: true },
   category: { type: String, required: true },
-  default_price: { type: Number, required: true }
+  default_price: { type: Number, required: true },
+  created_at: { type: Date },
+  updated_at: { type: Date },
+  features: { type: Array },
+  avgRating: { type: Number },
+  percentRecommended: { type: Number },
+  ratingsBreakdown: { type: Array },
+  styles: { type: Array }
 }, {
   timestamps: true,
 });

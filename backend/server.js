@@ -16,9 +16,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
-const uri = process.env.ATLAS_URI;
+// const uri = process.env.MONGO_LOCAL;
+const url = 'mongodb://127.0.0.1:27017/sdc';
 
-mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const connection = mongoose.connection;
 connection.once('open', () => {
